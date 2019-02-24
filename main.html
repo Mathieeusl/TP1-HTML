@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title></title>
+	<script src="jquery-3.3.1.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Layout.css">
 </head>
@@ -58,7 +60,120 @@
         </div>
 
         <script>
-        	
+
+            "use strict";
+
+        	$(document).ready(initUI);
+
+            let editMode = false;
+            let addMode = false;
+
+            let validationProvider;
+
+            function initUI() {
+                initValidation();
+                eraseForm();
+
+                $('#addContact').click(addContact);
+                $('#showAddContact').click(showAddContact);
+                $('#modifyContact').click(modifyContact);
+                $('#cancel').click(eraseForm);
+                $('#Name').keypress(textInputAlphaFilter);
+
+            }
+
+             function initValidation() {
+                $(".phone").mask("(999) 999-9999");
+                validationProvider = new ValidationProvider();
+                validationProvider.addControl("Name", validate_Name);
+                validationProvider.addControl("Phone", validate_Phone);
+                validationProvider.addControl("Email", validate_email);
+            }
+
+            function resetValidation() {
+                validationProvider.reset();
+            }
+
+            function validate_Name(){
+                let TBX_FirstName = document.getElementById("Name");
+
+                if (TBX_FirstName.value === "")
+                    return "Nom manquant";
+
+                return "";
+            }
+
+            function validate_Phone(){
+                let TBX_LastName = document.getElementById("Phone");
+
+                if (TBX_LastName.value === "")
+                    return "Téléphone manquant";
+
+                return "";
+            }
+
+            function validate_email(){
+                let TBX_Email = document.getElementById("Email");
+                let emailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/;
+
+                if (TBX_Email.value === "")
+                    return "Adresse de courriel manquante";
+
+                if (!emailRegex.test(TBX_Email.value))
+                    return "Adresse de courriel invalide";
+
+                return "";
+            }
+
+            function eraseForm() {
+                addMode = false;
+                editMode = false;
+                resetValidation();
+
+                $('.cell').removeClass('selectedRow');
+
+                $('#contactForm').hide();
+
+                $('#addContact').show();
+                $('#modifyContact').hide();
+                $('#showAddContact').show();
+
+                $('#Name').val('');
+                $('#Phone').val('');
+                $('#Email').val('');
+
+                $('#contactList button').hide();
+            }
+
+            function showAddContact() {
+                addMode = true;
+                $('#contactForm').show();
+                $('#showAddContact').hide();
+            }
+
+            // Afficher le formulaire pour la modification de contact
+            function showEditContact(e){
+                editMode = true;
+                $('#showAddContact').hide();
+                $('#addContact').hide();
+                $('#contactForm').show();
+
+                let contactId = e.currentTarget.id.split('_')[1];
+
+                // Extraction du contact de Id = contactId via le service web API
+                webAPI_getContact(contactId, ShowForm);
+            }
+
+            function ShowForm(contact) {
+                // peupler les contrôles de saisie
+                $('#Id').val(contact.Id); // input caché qui mémorise le Id du contact
+                $('#Name').val(contact.Name);
+                $('#Phone').val(contact.Phone);
+                $('#Email').val(contact.Email);
+                $('#modifyContact').show();
+            }
+
+
         </script>
 </body>
 </html>
