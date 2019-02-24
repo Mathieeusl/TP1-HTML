@@ -1,3 +1,59 @@
-
-akjsbbcjABSDDBAsjdbajsdbkajsd
-ADasA
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="Layout.css">
+</head>
+<body>
+ <div class="container">
+            <h3><img src="favicon.ico">&nbsp;Gestionnaire de contacts</h3>
+            <div class="array-container">
+                <div class="header-container">
+                    <div class="header-contacts-container">
+                        <div>Nom</div>
+                        <div>Téléphone</div>
+                        <div>Courriel</div>
+                        <div>
+                            <button id="showAddContact"
+                                    tooltip="Ajouter un contact" tooltip-position="left">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                        <div>&nbsp;</div>
+                    </div>
+                </div>
+                <div class="form-container">
+                    <div class="form-contact-container" id="contactForm">                      
+                        <div>
+                            <input type="hidden" id="Id" />
+                            <input type="text" id="Name" placeholder="Nom" class="form-control"/>
+                        </div>
+                        <div>
+                            <input type="text" id="Phone" placeholder="Téléphone"  class="phone form-control"/>
+                        </div>
+                        <div>
+                            <input type="text" id="Email" placeholder="Courriel" class="form-control"/>
+                        </div>
+                        <div>
+                            <button id="addContact" tooltip="Ajouter" tooltip-position="left">
+                                <span class="glyphicon glyphicon glyphicon-ok"></span>
+                            </button>                           
+                            <button id="modifyContact" tooltip="Modifier" tooltip-position="left">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </div>
+                        <div>
+                            <button id="cancel" tooltip="Annuler" tooltip-position="left">
+                                <span  class="glyphicon glyphicon-repeat"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-list-scroll-containter">
+                    <div class="contact-list-container" id="contactList">                      
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
