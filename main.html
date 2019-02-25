@@ -72,60 +72,43 @@
             function initUI() {
                 eraseForm();
 
-                $('#addContact').click(addContact);
-                $('#showAddContact').click(showAddContact);
-                $('#modifyContact').click(modifyContact);
-                $('#cancel').click(eraseForm);
-                $('#Name').keypress(textInputAlphaFilter);
+                $("#addContact").click(addContact);
+                $("#showAddContact").click(showAddContact);
+                $("#modifyContact").click(modifyContact);
+                $("#cancel").click(eraseForm);
+                $("#Name").keypress(textInputAlphaFilter);
 
             }
 
             function eraseForm() {
                 addMode = false;
                 editMode = false;
-                resetValidation();
 
-                $('.cell').removeClass('selectedRow');
+                $("#contactForm").hide();
 
-                $('#contactForm').hide();
-
-                $('#addContact').show();
-                $('#modifyContact').hide();
+                $("#addContact").show();
+                $("#modifyContact").hide();
                 $('#showAddContact').show();
 
-                $('#Name').val('');
-                $('#Phone').val('');
-                $('#Email').val('');
+                $("#Name").val("");
+                $("#Phone").val("");
+                $("#Email").val("");
 
-                $('#contactList button').hide();
+                $("#contactList button").hide();
             }
 
             function showAddContact() {
                 addMode = true;
-                $('#contactForm').show();
-                $('#showAddContact').hide();
+                $("#contactForm").show();
+                $("#showAddContact").hide();
             }
 
             function showEditContact(e){
                 editMode = true;
-                $('#showAddContact').hide();
-                $('#addContact').hide();
-                $('#contactForm').show();
-
-                let contactId = e.currentTarget.id.split('_')[1];
-
-                webAPI_getContact(contactId, ShowForm);
+                $("#showAddContact").hide();
+                $("#addContact").hide();
+                $("#contactForm").show();
             }
-
-            function ShowForm(contact) {
-                // peupler les contrôles de saisie
-                $('#Id').val(contact.Id); // input caché qui mémorise le Id du contact
-                $('#Name').val(contact.Name);
-                $('#Phone').val(contact.Phone);
-                $('#Email').val(contact.Email);
-                $('#modifyContact').show();
-            }
-
 
         </script>
 </body>
