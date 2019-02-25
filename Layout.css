@@ -80,3 +80,7 @@ button {
 .selectedRow {
     background-color: darkturquoise;
 }
+
+#initTableau {
+  border: 2px solid black;
+}

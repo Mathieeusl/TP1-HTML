@@ -8,11 +8,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Layout.css">
 </head>
-<body>
+<body onload="initTableau()">
  <div class="container">
             <h3>Gestionnaire de contacts</h3>
-            <div class="array-container">
-                <div class="header-container">
+            <table class="array-container" id="tableau">
+              <div class="header-container">
                     <div class="header-contacts-container">
                         <div>Nom</div>
                         <div>Téléphone</div>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="form-container">
-                    <div class="form-contact-container" id="contactForm">                      
+                    <div class="form-contact-container" id="contactForm">
                         <div>
                             <input type="hidden" id="Id" />
                             <input type="text" id="Name" placeholder="Nom" class="form-control"/>
@@ -41,7 +41,7 @@
                         <div>
                             <button id="addContact" tooltip="Ajouter" tooltip-position="left">
                                 <span class="glyphicon glyphicon glyphicon-ok"></span>
-                            </button>                           
+                            </button>
                             <button id="modifyContact" tooltip="Modifier" tooltip-position="left">
                                 <span class="glyphicon glyphicon-ok"></span>
                             </button>
@@ -54,10 +54,10 @@
                     </div>
                 </div>
                 <div class="contact-list-scroll-containter">
-                    <div class="contact-list-container" id="contactList">                      
+                    <div class="contact-list-container" id="contactList">
                     </div>
                 </div>
-            </div>
+            </table>
         </div>
 
         <script>
@@ -65,6 +65,77 @@
             "use strict";
 
         	$(document).ready(initUI);
+
+					class Contact {
+					  constructor(nom, tel, courriel) {
+					    this.nom = nom;
+					    this.tel = tel;
+					    this.courriel = courriel;
+					  }
+					}
+
+					let contacts = [
+					  new Contact("Étienne Forest", "(514)333-9999", "Etienne.Forest@clg.qc.ca"),
+					  new Contact("François Boileau", "(450)430-3120", "@clg.qc.ca"),
+					  new Contact("Jean Baudet", "(438)012-9321", "@clg.qc.ca"),
+					  new Contact("Joan Sébastien-Morales", "(450)430-3120", "@clg.qc.ca"),
+					  new Contact("Kyle Ross", "(514)123-1234", "@clg.qc.ca"),
+					  new Contact("Marc Beaulne", "(450)111-3333", "@clg.qc.ca"),
+					  new Contact("Nicolas Chourot", "(514)123-3456", "@clg.qc.ca"),
+					  new Contact("Saliha Yacoub", "(450)430-3120", "@clg.qc.ca")
+					];
+
+					function initTableau()
+					{
+					  let tr = document.createElement("tr");
+					  let tdNom = document.createElement("td");
+					  let tdTel = document.createElement("td");
+					  let tdCourriel = document.createElement("td");
+
+					  tr.classList.add("Premiertr");
+					  tdNom.classList.add("tdPremiertr");
+					  tdTel.classList.add("tdPremiertr");
+					  tdCourriel.classList.add("tdPremiertr");
+
+					  let txtNom = document.createTextNode("Nom");
+					  let txtTel = document.createTextNode("Téléphone");
+					  let txtCourriel = document.createTextNode("Courriel");
+
+					  tdNom.appendChild(txtNom);
+					  tdTel.appendChild(txtTel);
+					  tdCourriel.appendChild(txtCourriel);
+
+					  tr.appendChild(tdNom);
+					  tr.appendChild(tdTel);
+					  tr.appendChild(tdCourriel);
+
+					  let table = document.getElementById("tableau");
+					  table.appendChild(tr);
+
+
+						for (let i = 0; i < contacts.length; i++)
+						{
+							let trContact = document.createElement("tr");
+							let tdNomContact = document.createElement("td");
+						  let tdTelContact = document.createElement("td");
+						  let tdCourrielContact = document.createElement("td");
+
+							let txtNomContact = document.createTextNode(contacts[i].nom);
+						  let txtTelContact = document.createTextNode(contacts[i].tel);
+						  let txtCourrielContact = document.createTextNode(contacts[i].courriel);
+
+							tdNomContact.appendChild(txtNomContact);
+						  tdTelContact.appendChild(txtTelContact);
+						  tdCourrielContact.appendChild(txtCourrielContact);
+
+						  trContact.appendChild(tdNomContact);
+						  trContact.appendChild(tdTelContact);
+						  trContact.appendChild(tdCourrielContact);
+
+						  let table = document.getElementById("tableau");
+						  table.appendChild(trContact);
+						}
+					}
 
             let editMode = false;
             let addMode = false;
