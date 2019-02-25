@@ -9,9 +9,10 @@
 	<link rel="stylesheet" href="Layout.css">
 </head>
 <body onload="initTableau()">
- <div class="container">
-            <h3>Gestionnaire de contacts</h3>
+
+ <div class="grid-container">
             <table class="array-container" id="tableau">
+							<h3>Gestionnaire de contacts</h3>
               <div class="header-container">
                     <div class="header-contacts-container">
                         <div>Nom</div>
@@ -119,6 +120,8 @@
 							let tdNomContact = document.createElement("td");
 						  let tdTelContact = document.createElement("td");
 						  let tdCourrielContact = document.createElement("td");
+
+							trContact.classList.add("headerContacts");
 
 							let txtNomContact = document.createTextNode(contacts[i].nom);
 						  let txtTelContact = document.createTextNode(contacts[i].tel);
