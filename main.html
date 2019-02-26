@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Layout.css">
 </head>
-<body onload="initTableau()">
+<body onload="initContacts()">
 
  <div class="container">
             <div class="array-container">
@@ -86,59 +86,6 @@
 					  new Contact("Saliha Yacoub", "(450)430-3120", "@clg.qc.ca")
 					];
 
-					function initTableau()
-					{
-					  let tr = document.createElement("tr");
-					  let tdNom = document.createElement("td");
-					  let tdTel = document.createElement("td");
-					  let tdCourriel = document.createElement("td");
-
-					  tr.classList.add("Premiertr");
-					  tdNom.classList.add("tdPremiertr");
-					  tdTel.classList.add("tdPremiertr");
-					  tdCourriel.classList.add("tdPremiertr");
-
-					  let txtNom = document.createTextNode("Nom");
-					  let txtTel = document.createTextNode("Téléphone");
-					  let txtCourriel = document.createTextNode("Courriel");
-
-					  tdNom.appendChild(txtNom);
-					  tdTel.appendChild(txtTel);
-					  tdCourriel.appendChild(txtCourriel);
-
-					  tr.appendChild(tdNom);
-					  tr.appendChild(tdTel);
-					  tr.appendChild(tdCourriel);
-
-					  let table = document.getElementById("tableau");
-					  table.appendChild(tr);
-
-
-						for (let i = 0; i < contacts.length; i++)
-						{
-							let trContact = document.createElement("tr");
-							let tdNomContact = document.createElement("td");
-						  let tdTelContact = document.createElement("td");
-						  let tdCourrielContact = document.createElement("td");
-
-							trContact.classList.add("headerContacts");
-
-							let txtNomContact = document.createTextNode(contacts[i].nom);
-						  let txtTelContact = document.createTextNode(contacts[i].tel);
-						  let txtCourrielContact = document.createTextNode(contacts[i].courriel);
-
-							tdNomContact.appendChild(txtNomContact);
-						  tdTelContact.appendChild(txtTelContact);
-						  tdCourrielContact.appendChild(txtCourrielContact);
-
-						  trContact.appendChild(tdNomContact);
-						  trContact.appendChild(tdTelContact);
-						  trContact.appendChild(tdCourrielContact);
-
-						  let table = document.getElementById("tableau");
-						  table.appendChild(trContact);
-						}
-					}
 
             let editMode = false;
             let addMode = false;
@@ -164,9 +111,9 @@
                 $("#modifyContact").hide();
                 $('#showAddContact').show();
 
-                $("#Name").val("");
-                $("#Phone").val("");
-                $("#Email").val("");
+                $("#nom").val("");
+                $("#tel").val("");
+                $("#courriel").val("");
 
                 $("#contactList button").hide();
             }
@@ -183,6 +130,40 @@
                 $("#addContact").hide();
                 $("#contactForm").show();
             }
+
+						function makeCell(content){
+                return $("<div>" + content + "</div>");
+            }
+
+						function makeButton(cssClass, tooltip) {
+                return $('<button class="'+ cssClass + '"tooltip="' + tooltip + '" tooltip-position="left"></button>');
+            }
+
+            function makeGlyphIcon(glyphIconId){
+                return $("<span class='glyphicon glyphicon-" + glyphIconId + "'></span>");
+            }
+
+						function initContacts()
+						{
+							for (let i = 0; i < contacts.length; i++)
+							{
+								$('#contactList').append(makeCell(contacts[i].nom));
+								$('#contactList').append(makeCell(contacts[i].tel));
+								$('#contactList').append(makeCell(contacts[i].courriel));
+
+								$('#contactList').append(
+										makeCell("").append(
+												makeButton("editContact","Modifier "+ Contact.nom).append(
+														makeGlyphIcon('pencil'))));
+
+								// Bouton d'appel au retrait du contact
+								$('#contactList').append(
+										makeCell("").append(
+												makeButton("deleteContact","Effacer "+ Contact.nom).append(
+														makeGlyphIcon('remove'))));
+							}
+
+						}
 
         </script>
 </body>
