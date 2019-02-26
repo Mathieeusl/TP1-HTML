@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Layout.css">
 </head>
-<body onload="initContacts()">
+<body onload="AfficherListeContact()">
 
  <div class="container">
             <div class="array-container">
@@ -77,13 +77,13 @@
 
 					let contacts = [
 					  new Contact("Étienne Forest", "(514)333-9999", "Etienne.Forest@clg.qc.ca"),
-					  new Contact("François Boileau", "(450)430-3120", "@clg.qc.ca"),
-					  new Contact("Jean Baudet", "(438)012-9321", "@clg.qc.ca"),
-					  new Contact("Joan Sébastien-Morales", "(450)430-3120", "@clg.qc.ca"),
-					  new Contact("Kyle Ross", "(514)123-1234", "@clg.qc.ca"),
-					  new Contact("Marc Beaulne", "(450)111-3333", "@clg.qc.ca"),
-					  new Contact("Nicolas Chourot", "(514)123-3456", "@clg.qc.ca"),
-					  new Contact("Saliha Yacoub", "(450)430-3120", "@clg.qc.ca")
+					  new Contact("François Boileau", "(450)430-3120", "François.Boileau@clg.qc.ca"),
+					  new Contact("Jean Baudet", "(438)012-9321", "Jean.Baudet@clg.qc.ca"),
+					  new Contact("Joan Sébastien-Morales", "(450)430-3120", "Joan.Morales@clg.qc.ca"),
+					  new Contact("Kyle Ross", "(514)123-1234", "Kyle.Ross@clg.qc.ca"),
+					  new Contact("Marc Beaulne", "(450)111-3333", "Marc.Beaulne@clg.qc.ca"),
+					  new Contact("Nicolas Chourot", "(514)123-3456", "Nicolas.Chourot@clg.qc.ca"),
+					  new Contact("Saliha Yacoub", "(450)430-3120", "Saliha.Yacoub@clg.qc.ca")
 					];
 
 
@@ -131,8 +131,8 @@
                 $("#contactForm").show();
             }
 
-						function makeCell(content){
-                return $("<div>" + content + "</div>");
+						function makeCell(content, cssClass){
+                return $("<div class='" + cssClass + "'>" + content + "</div>");
             }
 
 						function makeButton(cssClass, tooltip) {
@@ -143,26 +143,37 @@
                 return $("<span class='glyphicon glyphicon-" + glyphIconId + "'></span>");
             }
 
-						function initContacts()
+						function AfficherListeContact()
 						{
 							for (let i = 0; i < contacts.length; i++)
 							{
-								$('#contactList').append(makeCell(contacts[i].nom));
-								$('#contactList').append(makeCell(contacts[i].tel));
-								$('#contactList').append(makeCell(contacts[i].courriel));
+								let rowClass;
+								if((i + 1) % 2 === 0)
+								{
+									rowClass = "evenRow";
+								}
+								else
+								{
+									rowClass = "oddRow";
+								}
+								$('#contactList').append(makeCell(contacts[i].nom, rowClass));
+								$('#contactList').append(makeCell(contacts[i].tel, rowClass));
+								$('#contactList').append(makeCell(contacts[i].courriel, rowClass));
 
 								$('#contactList').append(
-										makeCell("").append(
+										makeCell("", rowClass).append(
 												makeButton("editContact","Modifier "+ contacts[i].nom).append(
 														makeGlyphIcon('pencil'))));
 
 								$('#contactList').append(
-										makeCell("").append(
+										makeCell("", rowClass).append(
 												makeButton("deleteContact","Effacer "+ contacts[i].nom).append(
 														makeGlyphIcon('remove'))));
 							}
 
 						}
+
+
 
         </script>
 </body>
