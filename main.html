@@ -143,33 +143,67 @@
                 return $("<span class='glyphicon glyphicon-" + idIcone + "'></span>");
             }
 
-						function AfficherListeContact()
+			function AfficherListeContact()
+			{
+		          for (let i = 0; i < contacts.length; i++)
+				    {
+						let rowClasse;
+
+						if((i + 1) % 2 === 0)
 						{
-							for (let i = 0; i < contacts.length; i++)
-							{
-								let rowClasse;
-
-								if((i + 1) % 2 === 0)
-								{
-									rowClasse = "rangeePaire";
-								}
-								else
-								{
-									rowClasse = "rangeeImpaire";
-								}
-
-								$('#contactList').append(AjouterDivContact(contacts[i].nom, rowClasse));
-								$('#contactList').append(AjouterDivContact(contacts[i].tel, rowClasse));
-								$('#contactList').append(AjouterDivContact(contacts[i].courriel, rowClasse));
-
-								$('#contactList').append(AjouterDivContact("", rowClasse).append(AjouterBoutton("editContact","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
-
-								$('#contactList').append(AjouterDivContact("", rowClasse).append(AjouterBoutton("deleteContact","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
-							}
-
+							rowClasse = "rangeePaire";
+						}
+						else
+						{
+							rowClasse = "rangeeImpaire";
 						}
 
+						$('#contactList').append(AjouterDivContact(contacts[i].nom, rowClasse));
+						$('#contactList').append(AjouterDivContact(contacts[i].tel, rowClasse));
+						$('#contactList').append(AjouterDivContact(contacts[i].courriel, rowClasse));
 
+						$('#contactList').append(AjouterDivContact("", rowClasse).append(AjouterBoutton("editContact","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
+
+						$('#contactList').append(AjouterDivContact("", rowClasse).append(AjouterBoutton("deleteContact","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
+					}
+
+			}
+
+             // Ajout d'un contact
+            function addContact() {
+                if (validationProvider.isValid()) {
+                   new Contact("Saliha Yacoub", "(450)430-3120", "Saliha.Yacoub@clg.qc.ca")
+                }
+            }
+
+            // Requête au service Web API: Modification d'un contact
+            function modifyContact() {
+                // construction de l'objet contact
+                let contact = makeContactFromForm(true);
+                if (validationProvider.isValid()) {
+                    webAPI_modifyContact(contact, getContacts, insertErrorStatus);
+                }
+            }
+
+            // Après confirmation, requête au service Web API de retrait d'un contact
+            function deleteContact(e) {
+                // Extraction du Id du contact inscrit dans l'attribut id de l'élément déclencheur de l'événement click
+                let contactId = e.currentTarget.id.split('_')[1];
+                webAPI_getContact(contactId, confirmDeleteContact, insertErrorStatus);
+            }
+
+            function confirmDeleteContact(contact) {
+                $.confirm({
+                    title: 'Attention!',
+                    content: 'Effacer '+ contact.Name +'?',
+                    buttons: {
+                        confirmer: function () {
+                            webAPI_deleteContact(contact.Id, getContacts, insertErrorStatus);
+                        },
+                        annuler: {},
+                    }
+                });
+            }
 
         </script>
 </body>
