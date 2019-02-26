@@ -47,13 +47,13 @@ button {
 .rangeeImpaire {
     background-color: SlateGrey;
     font-weight: bold;
-    color: white;
+    color: black;
 }
 
 .rangeePaire {
     background-color: BlueViolet;
     font-weight: bold;
-    color: black;
+    color: white;
 }
 
 .waiting {
@@ -103,6 +103,8 @@ button {
   display: grid;
   grid-template-columns: auto;
 }
+
+
 
 #initTableau {
   border: 2px solid black;
