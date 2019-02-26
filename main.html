@@ -108,7 +108,7 @@
                 $("#contactForm").hide();
 
                 $("#addContact").show();
-                $("#modifyContact").hide();
+              	$("#modifyContact").hide();
                 $('#showAddContact').show();
 
                 $("#nom").val("");
@@ -153,13 +153,12 @@
 
 								$('#contactList').append(
 										makeCell("").append(
-												makeButton("editContact","Modifier "+ Contact.nom).append(
+												makeButton("editContact","Modifier "+ contacts[i].nom).append(
 														makeGlyphIcon('pencil'))));
 
-								// Bouton d'appel au retrait du contact
 								$('#contactList').append(
 										makeCell("").append(
-												makeButton("deleteContact","Effacer "+ Contact.nom).append(
+												makeButton("deleteContact","Effacer "+ contacts[i].nom).append(
 														makeGlyphIcon('remove'))));
 							}
 
