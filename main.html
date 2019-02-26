@@ -170,14 +170,19 @@
 			}
 
              // Ajout d'un contact
-            function AjouterContact() {
+            function addContact() {
                 if (validationProvider.isValid()) {
-                   new Contact("Saliha Yacoub", "(450)430-3120", "Saliha.Yacoub@clg.qc.ca")
+
+                    let Name = $('#Name').val();
+                    let Phone = $('#Phone').val()
+                    let Email = $('#Email').val();
+                    
+                    new contact
                 }
             }
 
             // Requête au service Web API: Modification d'un contact
-            function ModifierContact() {
+            function modifyContact() {
                 // construction de l'objet contact
                 let contact = makeContactFromForm(true);
                 if (validationProvider.isValid()) {
@@ -186,13 +191,13 @@
             }
 
             // Après confirmation, requête au service Web API de retrait d'un contact
-            function SupprimerContact(e) {
+            function deleteContact(e) {
                 // Extraction du Id du contact inscrit dans l'attribut id de l'élément déclencheur de l'événement click
                 let contactId = e.currentTarget.id.split('_')[1];
                 webAPI_getContact(contactId, confirmDeleteContact, insertErrorStatus);
             }
 
-            function ConfirmerSuppression(Contact) {
+            function confirmDeleteContact(contact) {
                 $.confirm({
                     title: 'Attention!',
                     content: 'Effacer '+ contact.Name +'?',
