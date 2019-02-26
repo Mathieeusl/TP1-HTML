@@ -93,9 +93,9 @@
             function initUI() {
                 eraseForm();
 
-                $("#addContact").click(addContact);
+                $("#addContact").click(AjouterUnContact);
                 $("#showAddContact").click(showAddContact);
-                $("#modifyContact").click(modifyContact);
+                $("#modifyContact").click(ModifierUnContact);
                 $("#cancel").click(eraseForm);
                 $("#Name").keypress(textInputAlphaFilter);
 
@@ -170,19 +170,23 @@
 			}
 
              // Ajout d'un contact
-            function addContact() {
+            function AjouterUnContact() {
                 if (validationProvider.isValid()) {
 
-                    let Name = $('#Name').val();
-                    let Phone = $('#Phone').val()
-                    let Email = $('#Email').val();
-                    
-                    new contact
+                    let Nom = $('#nom').val();
+                    let Tel = $('#tel').val()
+                    let Courriel = $('#courriel').val();
+
+                    let NouvContact = new Contact(Nom, Tel, Courriel);
+										contacts.push(NouvContact);
                 }
+
+								eraseForm();
+								AfficherListeContact();
             }
 
             // Requête au service Web API: Modification d'un contact
-            function modifyContact() {
+            function ModifierUnContact() {
                 // construction de l'objet contact
                 let contact = makeContactFromForm(true);
                 if (validationProvider.isValid()) {
@@ -191,7 +195,7 @@
             }
 
             // Après confirmation, requête au service Web API de retrait d'un contact
-            function deleteContact(e) {
+            function SupprimerUnContact(e) {
                 // Extraction du Id du contact inscrit dans l'attribut id de l'élément déclencheur de l'événement click
                 let contactId = e.currentTarget.id.split('_')[1];
                 webAPI_getContact(contactId, confirmDeleteContact, insertErrorStatus);
