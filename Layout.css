@@ -45,11 +45,15 @@ button {
 }
 
 .rangeeImpaire {
-    background-color: white;
+    background-color: SlateGrey;
+    font-weight: bold;
+    color: white;
 }
 
 .rangeePaire {
-    background-color: lightcyan;
+    background-color: BlueViolet;
+    font-weight: bold;
+    color: black;
 }
 
 .waiting {
