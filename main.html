@@ -98,7 +98,7 @@
                 $("#addContact").click(AjouterUnContact);
                 $("#showAddContact").click(showAddContact);
                 $("#modifyContact").click(ModifierUnContact);
-                $("#cancel").click(eraseForm;
+                $("#cancel").click(eraseForm);
                 $("#nom").keypress(textInputAlphaFilter);
 
             }
@@ -147,6 +147,7 @@
 
 			function AfficherListeContact()
 			{
+                $('#contactList').empty();
 		          for (let i = 0; i < contacts.length; i++)
 				    {
 						let rowClasse;
