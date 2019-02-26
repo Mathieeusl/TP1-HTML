@@ -217,9 +217,9 @@
             function initValidation() {
                 $(".phone").mask("(999) 999-9999");
                 validationProvider = new ValidationProvider();
-                validationProvider.addControl("Name", validate_Name);
-                validationProvider.addControl("Phone", validate_Phone);
-                validationProvider.addControl("Email", validate_email);
+                validationProvider.addControl("nom", validate_Name);
+                validationProvider.addControl("tel", validate_Phone);
+                validationProvider.addControl("courriel", validate_email);
             }
 
             function resetValidation() {
@@ -227,7 +227,7 @@
             }
 
             function validate_Name(){
-                let TBX_FirstName = document.getElementById("Name");
+                let TBX_FirstName = document.getElementById("nom");
 
                 if (TBX_FirstName.value === "")
                     return "Nom manquant";
@@ -236,7 +236,7 @@
             }
 
             function validate_Phone(){
-                let TBX_LastName = document.getElementById("Phone");
+                let TBX_LastName = document.getElementById("tel");
 
                 if (TBX_LastName.value === "")
                     return "Téléphone manquant";
@@ -245,7 +245,7 @@
             }
 
             function validate_email(){
-                let TBX_Email = document.getElementById("Email");
+                let TBX_Email = document.getElementById("courriel");
                 let emailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/;
 
                 if (TBX_Email.value === "")
