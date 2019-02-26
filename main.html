@@ -31,13 +31,13 @@
                     <div class="form-contact-container" id="contactForm">
                         <div>
                             <input type="hidden" id="Id" />
-                            <input type="text" id="Name" placeholder="Nom" class="form-control"/>
+                            <input type="text" id="nom" placeholder="Nom" class="form-control"/>
                         </div>
                         <div>
-                            <input type="text" id="Phone" placeholder="Téléphone"  class="phone form-control"/>
+                            <input type="text" id="tel" placeholder="Téléphone"  class="phone form-control"/>
                         </div>
                         <div>
-                            <input type="text" id="Email" placeholder="Courriel" class="form-control"/>
+                            <input type="text" id="courriel" placeholder="Courriel" class="form-control"/>
                         </div>
                         <div>
                             <button id="addContact" tooltip="Ajouter" tooltip-position="left">
@@ -97,7 +97,7 @@
                 $("#showAddContact").click(showAddContact);
                 $("#modifyContact").click(ModifierUnContact);
                 $("#cancel").click(eraseForm);
-                $("#Name").keypress(textInputAlphaFilter);
+                $("#nom").keypress(textInputAlphaFilter);
 
             }
 
