@@ -77,14 +77,14 @@
 					}
 
 					let contacts = [
-					  new Contact("Étienne Forest", "(514)333-9999", "Etienne.Forest@clg.qc.ca"),
-					  new Contact("François Boileau", "(450)430-3120", "François.Boileau@clg.qc.ca"),
-					  new Contact("Jean Baudet", "(438)012-9321", "Jean.Baudet@clg.qc.ca"),
-					  new Contact("Joan Sébastien-Morales", "(450)430-3120", "Joan.Morales@clg.qc.ca"),
-					  new Contact("Kyle Ross", "(514)123-1234", "Kyle.Ross@clg.qc.ca"),
-					  new Contact("Marc Beaulne", "(450)111-3333", "Marc.Beaulne@clg.qc.ca"),
-					  new Contact("Nicolas Chourot", "(514)123-3456", "Nicolas.Chourot@clg.qc.ca"),
-					  new Contact("Saliha Yacoub", "(450)430-3120", "Saliha.Yacoub@clg.qc.ca")
+					  new Contact("Étienne Forest", "(514) 333-9999", "Etienne.Forest@clg.qc.ca"),
+					  new Contact("François Boileau", "(450) 430-3120", "François.Boileau@clg.qc.ca"),
+					  new Contact("Jean Baudet", "(438) 012-9321", "Jean.Baudet@clg.qc.ca"),
+					  new Contact("Joan Sébastien-Morales", "(450) 430-3120", "Joan.Morales@clg.qc.ca"),
+					  new Contact("Kyle Ross", "(514) 123-1234", "Kyle.Ross@clg.qc.ca"),
+					  new Contact("Marc Beaulne", "(450) 111-3333", "Marc.Beaulne@clg.qc.ca"),
+					  new Contact("Nicolas Chourot", "(514) 123-3456", "Nicolas.Chourot@clg.qc.ca"),
+					  new Contact("Saliha Yacoub", "(450) 430-3120", "Saliha.Yacoub@clg.qc.ca")
 					];
 
 
@@ -93,6 +93,7 @@
 
             function initUI() {
                 eraseForm();
+                initValidation();
 
                 $("#addContact").click(AjouterUnContact);
                 $("#showAddContact").click(showAddContact);
