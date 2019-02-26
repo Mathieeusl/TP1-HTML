@@ -81,6 +81,16 @@ button {
     background-color: darkturquoise;
 }
 
+.headerContacts {
+  border: 2px solid black;
+}
+
+.grid-container
+{
+  display: grid;
+  grid-template-columns: auto;
+}
+
 #initTableau {
   border: 2px solid black;
 }
