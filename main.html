@@ -158,13 +158,13 @@
 							rowClasse = "rangeeImpaire";
 						}
 
-						$('#contactList').append(AjouterDivContact(contacts[i].nom, rowClasse));
-						$('#contactList').append(AjouterDivContact(contacts[i].tel, rowClasse));
-						$('#contactList').append(AjouterDivContact(contacts[i].courriel, rowClasse));
+						$("#contactList").append(AjouterDivContact(contacts[i].nom, rowClasse));
+						$("#contactList").append(AjouterDivContact(contacts[i].tel, rowClasse));
+						$('#contactList").append(AjouterDivContact(contacts[i].courriel, rowClasse));
 
-						$('#contactList').append(AjouterDivContact("", rowClasse).append(AjouterBoutton("editContact","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
+						$("#contactList").append(AjouterDivContact("", rowClasse).append(AjouterBoutton("editContact","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
 
-						$('#contactList').append(AjouterDivContact("", rowClasse).append(AjouterBoutton("deleteContact","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
+						$("#contactList").append(AjouterDivContact("", rowClasse).append(AjouterBoutton("deleteContact","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
 					}
 
 			}
@@ -173,9 +173,9 @@
             function AjouterUnContact() {
                 if (validationProvider.isValid()) {
 
-                    let Nom = $('#nom').val();
-                    let Tel = $('#tel').val()
-                    let Courriel = $('#courriel').val();
+                    let Nom = $("#nom").val();
+                    let Tel = $("#tel").val()
+                    let Courriel = $("#courriel").val();
 
                     let NouvContact = new Contact(Nom, Tel, Courriel);
 										contacts.push(NouvContact);
@@ -203,8 +203,8 @@
 
             function confirmDeleteContact(contact) {
                 $.confirm({
-                    title: 'Attention!',
-                    content: 'Effacer '+ contact.Name +'?',
+                    title: "Attention!",
+                    content: "Effacer "+ contact.Name +"?",
                     buttons: {
                         confirmer: function () {
                             webAPI_deleteContact(contact.Id, getContacts, insertErrorStatus);
