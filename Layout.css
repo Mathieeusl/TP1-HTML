@@ -44,11 +44,11 @@ button {
     padding: 5px;
 }
 
-.oddRow {
+.rangeeImpaire {
     background-color: white;
 }
 
-.evenRow {
+.rangeePaire {
     background-color: lightcyan;
 }
 

@@ -131,44 +131,40 @@
                 $("#contactForm").show();
             }
 
-						function makeCell(content, cssClass){
-                return $("<div class='" + cssClass + "'>" + content + "</div>");
+						function AjouterDivContact(ContenuDiv, Classe){
+                return $("<div class='" + Classe + "'>" + ContenuDiv + "</div>");
             }
 
-						function makeButton(cssClass, tooltip) {
-                return $('<button class="'+ cssClass + '"tooltip="' + tooltip + '" tooltip-position="left"></button>');
+						function AjouterBoutton(Classe, tooltip) {
+                return $('<button class="'+ Classe + '"tooltip="' + tooltip + '" tooltip-position="left"></button>');
             }
 
-            function makeGlyphIcon(glyphIconId){
-                return $("<span class='glyphicon glyphicon-" + glyphIconId + "'></span>");
+            function AjouterIcone(idIcone){
+                return $("<span class='glyphicon glyphicon-" + idIcone + "'></span>");
             }
 
 						function AfficherListeContact()
 						{
 							for (let i = 0; i < contacts.length; i++)
 							{
-								let rowClass;
+								let rowClasse;
+
 								if((i + 1) % 2 === 0)
 								{
-									rowClass = "evenRow";
+									rowClasse = "rangeePaire";
 								}
 								else
 								{
-									rowClass = "oddRow";
+									rowClasse = "rangeeImpaire";
 								}
-								$('#contactList').append(makeCell(contacts[i].nom, rowClass));
-								$('#contactList').append(makeCell(contacts[i].tel, rowClass));
-								$('#contactList').append(makeCell(contacts[i].courriel, rowClass));
 
-								$('#contactList').append(
-										makeCell("", rowClass).append(
-												makeButton("editContact","Modifier "+ contacts[i].nom).append(
-														makeGlyphIcon('pencil'))));
+								$('#contactList').append(AjouterDivContact(contacts[i].nom, rowClasse));
+								$('#contactList').append(AjouterDivContact(contacts[i].tel, rowClasse));
+								$('#contactList').append(AjouterDivContact(contacts[i].courriel, rowClasse));
 
-								$('#contactList').append(
-										makeCell("", rowClass).append(
-												makeButton("deleteContact","Effacer "+ contacts[i].nom).append(
-														makeGlyphIcon('remove'))));
+								$('#contactList').append(AjouterDivContact("", rowClasse).append(AjouterBoutton("editContact","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
+
+								$('#contactList').append(AjouterDivContact("", rowClasse).append(AjouterBoutton("deleteContact","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
 							}
 
 						}
