@@ -214,6 +214,50 @@
                 });
             }
 
+            function initValidation() {
+                $(".phone").mask("(999) 999-9999");
+                validationProvider = new ValidationProvider();
+                validationProvider.addControl("Name", validate_Name);
+                validationProvider.addControl("Phone", validate_Phone);
+                validationProvider.addControl("Email", validate_email);
+            }
+
+            function resetValidation() {
+                validationProvider.reset();
+            }
+
+            function validate_Name(){
+                let TBX_FirstName = document.getElementById("Name");
+
+                if (TBX_FirstName.value === "")
+                    return "Nom manquant";
+
+                return "";
+            }
+
+            function validate_Phone(){
+                let TBX_LastName = document.getElementById("Phone");
+
+                if (TBX_LastName.value === "")
+                    return "Téléphone manquant";
+
+                return "";
+            }
+
+            function validate_email(){
+                let TBX_Email = document.getElementById("Email");
+                let emailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/;
+
+                if (TBX_Email.value === "")
+                    return "Adresse de courriel manquante";
+
+                if (!emailRegex.test(TBX_Email.value))
+                    return "Adresse de courriel invalide";
+
+                return "";
+            }
+
+
         </script>
 </body>
 </html>
