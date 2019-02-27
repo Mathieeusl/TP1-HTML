@@ -152,29 +152,23 @@
 
 			function AfficherListeContact()
 			{
+                var oddRow = true;
                 $("#ListeContact").empty();
 
-		           contacts.forEach(contact => { 
+		           for (let i = 0; i < contacts.length; i++)
+                    {
+                         let bgColorRow = "row_" + contact.Id + " cell " + (oddRow?  "oddRow": "evenRow") ;
 
-                    let bgColorRow = "row_" + contact.nom + " cell " + (oddRow?  "oddRow": "evenRow") ;
+                        $("#ListeContact").append(makeCell(contacts[i].nom, rowClasse));
+                        $("#ListeContact").append(makeCell(contacts[i].tel, rowClasse));
+                        $("#ListeContact").append(makeCell(contacts[i].courriel, rowClasse));
 
-                    $('#contactList').append(makeCell(contact.nom, bgColorRow ));
-                    $('#contactList').append(makeCell(contact.nom, bgColorRow));
-                    $('#contactList').append(makeCell(contact.Email, bgColorRow));
+                        $("#ListeContact").append(makeCell("", rowClasse).append(AjouterBoutton("BoutonModifier","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
 
-                    $('#contactList').append(
-                        makeCell("", bgColorRow).append(
-                            makeButton("BoutonModifier","edit_" + contact.Id ,"Modifier "+ contact.Name).append(
-                                makeGlyphIcon('pencil'))));
+                        $("#ListeContact").append(makeCell("", rowClasse).append(AjouterBoutton("BoutonSupprimer","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
 
-                    // Bouton d'appel au retrait du contact
-                    $('#contactList').append(
-                        makeCell("", bgColorRow).append(
-                            makeButton("deleteContact","delete_" + contact.Id ,"Effacer "+ contact.Name).append(
-                                makeGlyphIcon('remove'))));
-
-                    oddRow = !oddRow;
-               });
+                        oddRow = !oddRow;
+                    }
 
                 $(".BoutonModifier").click(SaisiePourModifier);
                 $(".BoutonSupprimer").click(Supprimer);
