@@ -14,7 +14,7 @@
 
  <div class="container">
             <div class="array-container">
-							<h3>  Gestionnaire de contacts</h3>
+							<h3 class="TitreGestionnaire">Gestionnaire de contacts</h3>
               <div class="header-container">
                     <div class="header-contacts-container">
                         <div>Nom</div>
@@ -218,14 +218,14 @@
             function ModifierUnContact() {
                 let contact = makeContactFromForm(true);
                 if (validationProvider.isValid()) {
-                   
+
 
                 }
             }
 
             function Supprimer(e) {
                 let contactId = e.currentTarget.id.split("_")[1];
-               
+
             }
 
             function SupprimerConfirmation(contact) {
@@ -234,7 +234,7 @@
                     content: "Effacer "+ contact.Name +"?",
                     buttons: {
                         confirmer: function () {
-                            
+
                         },
                         annuler: {},
                     }
