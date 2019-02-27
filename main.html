@@ -174,7 +174,6 @@
 
                 $(".BoutonModifier").click(SaisiePourModifier);
                 $(".BoutonSupprimer").click(Supprimer);
-                $("#ListeContact button").hide();
 
                 $('.cell').mouseover(CellOver);
                 $('.cell').mouseleave(CellBlur);
@@ -191,9 +190,9 @@
             function CellBlur(e){
                 if (!editMode) {
                     let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
-                    $('#Modifier_' + contactId).hide();
-                    $('#Supprimer_' + contactId).hide();
-                    $('.row_'+contactId).removeClass('selectedRow');
+                    $("#Modifier_" + contactId).hide();
+                    $("#Supprimer_" + contactId).hide();
+                    $(".row_"+contactId).removeClass('selectedRow');
                 }
             }
 
