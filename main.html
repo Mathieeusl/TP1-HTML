@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Layout.css">
 </head>
-<body onload="AfficherListeContact()">
+<body>
 
  <div class="container">
             <div class="array-container">
@@ -21,7 +21,7 @@
                         <div>Téléphone</div>
                         <div>Courriel</div>
                         <div>
-                            <button id="showAddContact"
+                            <button id="BoutonAjouter"
                                     tooltip="Ajouter un contact" tooltip-position="left">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </button>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="form-container">
-                    <div class="form-contact-container" id="contactForm">
+                    <div class="form-contact-container" id="DivContact">
                         <div>
                             <input type="hidden" id="Id" />
                             <input type="text" id="nom" placeholder="Nom" class="form-control"/>
@@ -42,22 +42,22 @@
                             <input type="text" id="courriel" placeholder="Courriel" class="form-control"/>
                         </div>
                         <div>
-                            <button id="addContact" tooltip="Ajouter" tooltip-position="left">
+                            <button id="BoutonInsererContact" tooltip="Ajouter" tooltip-position="left">
                                 <span class="glyphicon glyphicon glyphicon-ok"></span>
                             </button>
-                            <button id="modifyContact" tooltip="Modifier" tooltip-position="left">
+                            <button id="BoutonInsererContactModifier" tooltip="Modifier" tooltip-position="left">
                                 <span class="glyphicon glyphicon-ok"></span>
                             </button>
                         </div>
                         <div>
-                            <button id="cancel" tooltip="Annuler" tooltip-position="left">
+                            <button id="BoutonCancel" tooltip="Annuler" tooltip-position="left">
                                 <span  class="glyphicon glyphicon-repeat"></span>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="contact-list-scroll-containter">
-                    <div class="contact-list-container" id="contactList">
+                    <div class="contact-list-container" id="ListeContact">
                     </div>
                 </div>
             </div>
@@ -93,65 +93,66 @@
             let addMode = false;
 
             function initUI() {
-                eraseForm();
                 initValidation();
 
-                $("#addContact").click(AjouterUnContact);
-                $("#showAddContact").click(showAddContact);
-                $("#modifyContact").click(ModifierUnContact);
-                $("#cancel").click(eraseForm);
+                $("#BoutonInsererContact").click(AjouterUnContact);
+                $("#BoutonAjouter").click(SaisiePourAjouter);
+                $("#BoutonInsererContactModifier").click(ModifierUnContact);
+                $("#BoutonCancel").click(Default);
                 $("#nom").keypress(textInputAlphaFilter);
+
+                AfficherListeContact();
+                Default();
 
             }
 
-            function eraseForm() {
+            function Default() {
                 addMode = false;
                 editMode = false;
 
-                $("#contactForm").hide();
+                $("#DivContact").hide();
 
-                $("#AjouterUnContact").show();
-              	$("#ModifierUnContact").hide();
-                $('#showAddContact').show();
+                $("#BoutonAjouter").show();
+              	$("#BoutonInsererContactModifier").hide();
+                $("#BoutonInsererContact").show();
 
                 $("#nom").val("");
                 $("#tel").val("");
                 $("#courriel").val("");
 
-                $("#contactList button").hide();
+                $("#ListeContact button").hide();
             }
 
-            function showAddContact() {
+            function SaisiePourAjouter(e) {
                 addMode = true;
-                $("#contactForm").show();
-                $("#showAddContact").hide();
-                
-                $('#contactList button').hide();
+                $("#DivContact").show();
+                $("#BoutonAjouter").hide();
             }
 
-            function showEditContact(e){
+            function SaisiePourModifier(e){
                 editMode = true;
-                $("#showAddContact").hide();
-                $("#addContact").hide();
-                $("#contactForm").show();
-                $('#contactList button').hide();
+                $("#DivContact").show();
+                $("#BoutonAjouter").hide();
+                $("#BoutonInsererContactModifier").show();
+                $("#BoutonInsererContact").hide();
             }
 
-						function AjouterDivContact(ContenuDiv, Classe){
-                return $("<div class='" + Classe + "'>" + ContenuDiv + "</div>");
+			 function makeCell(content, cssClass){
+                return $('<div class= "' + cssClass + '">' + content + '</div>');
             }
 
-						function AjouterBoutton(Classe, tooltip) {
+			function AjouterBoutton(Classe, tooltip) {
                 return $('<button class="'+ Classe + '"tooltip="' + tooltip + '" tooltip-position="left"></button>');
             }
 
             function AjouterIcone(idIcone){
-                return $("<span class='glyphicon glyphicon-" + idIcone + "'></span>");
+                return $("<span class='glyphicon glyphicon-" + idIcone + "''></span>");
             }
 
 			function AfficherListeContact()
 			{
-                $('#contactList').empty();
+                $("#ListeContact").empty();
+
 		          for (let i = 0; i < contacts.length; i++)
 				    {
 						let rowClasse;
@@ -165,18 +166,20 @@
 							rowClasse = "rangeeImpaire";
 						}
 
-						$("#contactList").append(AjouterDivContact(contacts[i].nom, rowClasse));
-						$("#contactList").append(AjouterDivContact(contacts[i].tel, rowClasse));
-						$("#contactList").append(AjouterDivContact(contacts[i].courriel, rowClasse));
+						$("#ListeContact").append(makeCell(contacts[i].nom, rowClasse));
+						$("#ListeContact").append(makeCell(contacts[i].tel, rowClasse));
+						$("#ListeContact").append(makeCell(contacts[i].courriel, rowClasse));
 
-						$("#contactList").append(AjouterDivContact("", rowClasse).append(AjouterBoutton("editContact","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
+						$("#ListeContact").append(makeCell("", rowClasse).append(AjouterBoutton("BoutonModifier","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
 
-						$("#contactList").append(AjouterDivContact("", rowClasse).append(AjouterBoutton("deleteContact","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
+						$("#ListeContact").append(makeCell("", rowClasse).append(AjouterBoutton("BoutonSupprimer","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
 					}
 
-                $('.editContact').click(showEditContact);
-               $('.deleteContact').click(deleteContact);
-               $('#contactList button').hide();
+                $(".BoutonModifier").click(SaisiePourModifier);
+                $(".BoutonSupprimer").click(Supprimer);
+                $("#contactList button").hide();
+
+
 			}
 
             function AjouterUnContact() {
@@ -189,29 +192,30 @@
                     let NouvContact = new Contact(Nom, Tel, Courriel);
 										contacts.push(NouvContact);
                 }
-								eraseForm();
-								AfficherListeContact();
+				AfficherListeContact();
+                Default();
             }
 
             function ModifierUnContact() {
                 let contact = makeContactFromForm(true);
                 if (validationProvider.isValid()) {
-                    webAPI_modifyContact(contact, getContacts, insertErrorStatus);
+                   
+
                 }
             }
 
-            function SupprimerUnContact(e) {
-                let contactId = e.currentTarget.id.split('_')[1];
-                webAPI_getContact(contactId, confirmDeleteContact, insertErrorStatus);
+            function Supprimer(e) {
+                let contactId = e.currentTarget.id.split("_")[1];
+               
             }
 
-            function confirmDeleteContact(contact) {
+            function SupprimerConfirmation(contact) {
                 $.confirm({
                     title: "Attention!",
                     content: "Effacer "+ contact.Name +"?",
                     buttons: {
                         confirmer: function () {
-                            webAPI_deleteContact(contact.Id, getContacts, insertErrorStatus);
+                            
                         },
                         annuler: {},
                     }
@@ -261,6 +265,22 @@
                 return "";
             }
 
+            function CellOver(e){
+                if (!addMode && !editMode) {
+                    let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
+                    $('#edit_' + contactId).show();
+                    $('#delete_' + contactId).show();
+                    $('.row_'+contactId).addClass('selectedRow');
+                }
+            }
+            function CellBlur(e){
+                if (!editMode) {
+                    let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
+                    $('#edit_' + contactId).hide();
+                    $('#delete_' + contactId).hide();
+                    $('.row_'+contactId).removeClass('selectedRow');
+                }
+            }
 
         </script>
 </body>
