@@ -5,6 +5,7 @@
 	<title></title>
 	<script src="jquery-3.3.1.js"></script>
 	<script src="jquery.maskedinput.js"></script>
+    <link rel="stylesheet" href="tooltip.css">
 	<script src="Validation.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Layout.css">
@@ -87,7 +88,7 @@
 					  new Contact("Saliha Yacoub", "(450) 430-3120", "Saliha.Yacoub@clg.qc.ca")
 					];
 
-						let validationProvider;
+			let validationProvider;
             let editMode = false;
             let addMode = false;
 
@@ -170,9 +171,11 @@
 						$("#contactList").append(AjouterDivContact("", rowClasse).append(AjouterBoutton("deleteContact","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
 					}
 
+                $('.editContact').click(showEditContact);
+               $('.deleteContact').click(deleteContact);
+               $('#contactList button').hide();
 			}
 
-             // Ajout d'un contact
             function AjouterUnContact() {
                 if (validationProvider.isValid()) {
 
@@ -183,23 +186,18 @@
                     let NouvContact = new Contact(Nom, Tel, Courriel);
 										contacts.push(NouvContact);
                 }
-
 								eraseForm();
 								AfficherListeContact();
             }
 
-            // Requête au service Web API: Modification d'un contact
             function ModifierUnContact() {
-                // construction de l'objet contact
                 let contact = makeContactFromForm(true);
                 if (validationProvider.isValid()) {
                     webAPI_modifyContact(contact, getContacts, insertErrorStatus);
                 }
             }
 
-            // Après confirmation, requête au service Web API de retrait d'un contact
             function SupprimerUnContact(e) {
-                // Extraction du Id du contact inscrit dans l'attribut id de l'élément déclencheur de l'événement click
                 let contactId = e.currentTarget.id.split('_')[1];
                 webAPI_getContact(contactId, confirmDeleteContact, insertErrorStatus);
             }
