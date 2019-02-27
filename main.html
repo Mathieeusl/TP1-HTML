@@ -154,34 +154,52 @@
 			{
                 $("#ListeContact").empty();
 
-		          for (let i = 0; i < contacts.length; i++)
-				    {
-						let rowClasse;
+		           contacts.forEach(contact => { 
 
-						if((i + 1) % 2 === 0)
-						{
-							rowClasse = "rangeePaire";
-						}
-						else
-						{
-							rowClasse = "rangeeImpaire";
-						}
+                    let bgColorRow = "row_" + contact.nom + " cell " + (oddRow?  "oddRow": "evenRow") ;
 
-						$("#ListeContact").append(makeCell(contacts[i].nom, rowClasse));
-						$("#ListeContact").append(makeCell(contacts[i].tel, rowClasse));
-						$("#ListeContact").append(makeCell(contacts[i].courriel, rowClasse));
+                    $('#contactList').append(makeCell(contact.nom, bgColorRow ));
+                    $('#contactList').append(makeCell(contact.nom, bgColorRow));
+                    $('#contactList').append(makeCell(contact.Email, bgColorRow));
 
-						$("#ListeContact").append(makeCell("", rowClasse).append(AjouterBoutton("BoutonModifier","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
+                    $('#contactList').append(
+                        makeCell("", bgColorRow).append(
+                            makeButton("BoutonModifier","edit_" + contact.Id ,"Modifier "+ contact.Name).append(
+                                makeGlyphIcon('pencil'))));
 
-						$("#ListeContact").append(makeCell("", rowClasse).append(AjouterBoutton("BoutonSupprimer","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
-					}
+                    // Bouton d'appel au retrait du contact
+                    $('#contactList').append(
+                        makeCell("", bgColorRow).append(
+                            makeButton("deleteContact","delete_" + contact.Id ,"Effacer "+ contact.Name).append(
+                                makeGlyphIcon('remove'))));
+
+                    oddRow = !oddRow;
+               });
 
                 $(".BoutonModifier").click(SaisiePourModifier);
                 $(".BoutonSupprimer").click(Supprimer);
                 $("#contactList button").hide();
 
-
+                $('.range').mouseover(CellOver);
+                $('.').mouseleave(CellBlur);
 			}
+
+             function CellOver(e){
+                if (!addMode && !editMode) {
+                    let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
+                    $("#Modifier_" + contactId).show();
+                    $("#Effacer_" + contactId).show();
+                    $('.row_'+contactId).addClass('selectedRow');
+                }
+            }
+            function CellBlur(e){
+                if (!editMode) {
+                    let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
+                    $('#Modifier_' + contactId).hide();
+                    $('#Effacer_' + contactId).hide();
+                    $('.row_'+contactId).removeClass('selectedRow');
+                }
+            }
 
             function AjouterUnContact() {
                 if (validationProvider.isValid()) {
@@ -266,22 +284,7 @@
                 return "";
             }
 
-            function CellOver(e){
-                if (!addMode && !editMode) {
-                    let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
-                    $('#edit_' + contactId).show();
-                    $('#delete_' + contactId).show();
-                    $('.row_'+contactId).addClass('selectedRow');
-                }
-            }
-            function CellBlur(e){
-                if (!editMode) {
-                    let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
-                    $('#edit_' + contactId).hide();
-                    $('#delete_' + contactId).hide();
-                    $('.row_'+contactId).removeClass('selectedRow');
-                }
-            }
+           
 
         </script>
 </body>
