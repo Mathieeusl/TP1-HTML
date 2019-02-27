@@ -143,8 +143,8 @@
                 return $('<div class= "' + cssClass + '">' + content + '</div>');
             }
 
-			function AjouterBoutton(Classe, tooltip) {
-                return $('<button class="'+ Classe + '"tooltip="' + tooltip + '" tooltip-position="left"></button>');
+			function AjouterBoutton(cssClass, id, tooltip) {
+                return $('<button id="' + id + '" class="'+ cssClass + '"tooltip="' + tooltip + '" tooltip-position="left"></button>');
             }
 
             function AjouterIcone(idIcone){
@@ -165,9 +165,9 @@
                         $("#ListeContact").append(makeCell(contacts[i].tel, bgColorRow));
                         $("#ListeContact").append(makeCell(contacts[i].courriel, bgColorRow));
 
-                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonModifier","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
+                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonModifier","Modifier_" + contacts[i].nom,"Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
 
-                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonSupprimer","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
+                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonSupprimer","Supprimer_" +contacts[i].nom,"Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
 
                         oddRow = !oddRow;
                     }
@@ -176,14 +176,15 @@
                 $(".BoutonSupprimer").click(Supprimer);
                 $("#ListeContact button").hide();
 
-                
+                $('.cell').mouseover(CellOver);
+                $('.cell').mouseleave(CellBlur);
 			}
 
              function CellOver(e){
                 if (!addMode && !editMode) {
                     let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
                     $("#Modifier_" + contactId).show();
-                    $("#Effacer_" + contactId).show();
+                    $("#Supprimer_" + contactId).show();
                     $('.row_'+contactId).addClass('selectedRow');
                 }
             }
@@ -191,7 +192,7 @@
                 if (!editMode) {
                     let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
                     $('#Modifier_' + contactId).hide();
-                    $('#Effacer_' + contactId).hide();
+                    $('#Supprimer_' + contactId).hide();
                     $('.row_'+contactId).removeClass('selectedRow');
                 }
             }
