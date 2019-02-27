@@ -44,14 +44,13 @@ button {
     padding: 5px;
 }
 
-.rangeeImpaire {
+.oddRow {
     background-color: LightSteelBlue;
     font-weight: bold;
     color: black;
     margin-top: 3px;
 }
-
-.rangeePaire {
+.evenRow {
     background-color: MediumPurple;
     font-weight: bold;
     color: white;

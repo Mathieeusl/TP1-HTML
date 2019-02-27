@@ -4,7 +4,8 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<script src="jquery-3.3.1.js"></script>
-	<script src="jquery.maskedinput.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script src="jquery.maskedinput.js"></script>
     <link rel="stylesheet" href="tooltip.css">
 	<script src="Validation.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -153,29 +154,29 @@
 			function AfficherListeContact()
 			{
                 var oddRow = true;
+
                 $("#ListeContact").empty();
 
 		           for (let i = 0; i < contacts.length; i++)
                     {
-                         let bgColorRow = "row_" + contact.Id + " cell " + (oddRow?  "oddRow": "evenRow") ;
+                         let bgColorRow = "row_" + contacts[i].nom + " cell " + (oddRow?  "oddRow": "evenRow");
 
-                        $("#ListeContact").append(makeCell(contacts[i].nom, rowClasse));
-                        $("#ListeContact").append(makeCell(contacts[i].tel, rowClasse));
-                        $("#ListeContact").append(makeCell(contacts[i].courriel, rowClasse));
+                        $("#ListeContact").append(makeCell(contacts[i].nom, bgColorRow));
+                        $("#ListeContact").append(makeCell(contacts[i].tel, bgColorRow));
+                        $("#ListeContact").append(makeCell(contacts[i].courriel, bgColorRow));
 
-                        $("#ListeContact").append(makeCell("", rowClasse).append(AjouterBoutton("BoutonModifier","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
+                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonModifier","Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
 
-                        $("#ListeContact").append(makeCell("", rowClasse).append(AjouterBoutton("BoutonSupprimer","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
+                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonSupprimer","Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
 
                         oddRow = !oddRow;
                     }
 
                 $(".BoutonModifier").click(SaisiePourModifier);
                 $(".BoutonSupprimer").click(Supprimer);
-                $("#contactList button").hide();
+                $("#ListeContact button").hide();
 
-                $('.range').mouseover(CellOver);
-                $('.').mouseleave(CellBlur);
+                
 			}
 
              function CellOver(e){
