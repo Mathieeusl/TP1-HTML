@@ -153,27 +153,29 @@
 			function AfficherListeContact()
 			{
                 var oddRow = true;
+                var Numerotation = 0;
 
                 $("#ListeContact").empty();
 
 		           for (let i = 0; i < contacts.length; i++)
                     {
-                         let bgColorRow = "row_" + contacts[i].nom + " cell " + (oddRow?  "oddRow": "evenRow");
+                         let bgColorRow = "row_" + Numerotation + " cell " + (oddRow?  "oddRow": "evenRow");
 
                         $("#ListeContact").append(makeCell(contacts[i].nom, bgColorRow));
                         $("#ListeContact").append(makeCell(contacts[i].tel, bgColorRow));
                         $("#ListeContact").append(makeCell(contacts[i].courriel, bgColorRow));
 
-                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonModifier","Modifier1" + contacts[i].nom,"Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
+                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonModifier","Modifier1_" + Numerotation,"Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
 
-                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonSupprimer","Supprimer1" +contacts[i].nom,"Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
+                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonSupprimer","Supprimer1_" +Numerotation,"Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
 
                         oddRow = !oddRow;
+                        Numerotation++;
                     }
-
+$('input').on("paste",function(e) { e.preventDefault(); });
                 $(".BoutonModifier").click(SaisiePourModifier);
                 $(".BoutonSupprimer").click(Supprimer);
-                $('input').on("paste",function(e) { e.preventDefault(); });
+                
                 $("#ListeContact button").hide();
                 $('.cell').mouseover(CellOver);
                 $('.cell').mouseleave(CellBlur);
@@ -216,19 +218,19 @@
                 }
             }
             function ContactRow(e) {
-                let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
-                var NomMod;
-                var TelMod;
-                var CourrielMod;
+                
             }
 
             function Supprimer(e) {
+                let contactId = e.currentTarget.id.split(' ')[0].split('_')[1];
+                console.log(contacts,contactId);
+                var Name = contacts[contactId].nom;
 				 $.confirm({
                     title: 'Attention!',
-                    content: 'Effacer ?',
+                    content: 'Effacer '+ Name +'?',
                     buttons: {
                         confirmer: function () {
-                            
+                            contacts.pop(contacts[contactId]);
                         },
                         annuler: {},
                     }
