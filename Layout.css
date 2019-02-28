@@ -75,7 +75,7 @@ button {
 .array-container {
     border:2px solid black;
     background-color: lightgray;
-    border-radius: 15px;
+    border-radius: 5px;
     text-align: center;
 }
 .cell {

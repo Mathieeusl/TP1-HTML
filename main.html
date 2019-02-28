@@ -78,7 +78,8 @@
 					    this.courriel = courriel;
 					  }
 					}
-
+                    let EnSelection;
+                    
 					let contacts = [
 					  new Contact("Étienne Forest", "(514) 333-9999", "Etienne.Forest@clg.qc.ca"),
 					  new Contact("François Boileau", "(450) 430-3120", "François.Boileau@clg.qc.ca"),
@@ -99,7 +100,7 @@
                    Default();
                 $("#BoutonInsererContact").click(AjouterUnContact);
                 $("#BoutonAjouter").click(SaisiePourAjouter);
-                $("#BoutonInsererContactModifier").click(ModifierUnContact);
+                $("#BoutonInsererContactModifier").click(Modifier);
                 $("#BoutonCancel").click(Default);
                 $("#nom").keypress(textInputAlphaFilter);
         
@@ -136,6 +137,7 @@
                 $("#BoutonAjouter").hide();
                 $("#BoutonInsererContactModifier").show();
                 $("#BoutonInsererContact").hide();
+                $("#ListeContact button").hide();
             }
 
 			 function makeCell(content, cssClass){
@@ -173,7 +175,7 @@
                         Numerotation++;
                     }
                 $('input').on("paste",function(e) { e.preventDefault(); });
-                $(".BoutonModifier").click(SaisiePourModifier);
+                $(".BoutonModifier").click(ModifierUnContact);
                 $(".BoutonSupprimer").click(Supprimer);
                 
                 $("#ListeContact button").hide();
@@ -186,6 +188,7 @@
                     let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
                   $('.row_'+contactId + ' button').show();
                     $('.row_'+contactId).addClass('selectedRow');
+                    EnSelection = contactId;
                 }
             }
             function CellBlur(e){
@@ -210,17 +213,6 @@
 								AfficherListeContact();
             }
 
-            function ModifierUnContact() {
-                let contact = makeContactFromForm(true);
-                if (validationProvider.isValid()) {
-
-
-                }
-            }
-            function ContactRow(e) {
-                
-            }
-
             function Supprimer(e) {
                 let contactId = e.currentTarget.id.split(' ')[0].split('_')[1];
                 console.log(contacts,contactId);
@@ -237,6 +229,27 @@
                         annuler: {},
                     }
                 });
+            }
+
+            function Modifier()
+            {
+                if (validationProvider.isValid()) {
+
+                    contact[EnSelection].nom = $("#nom").val();
+                    contact[EnSelection].tel = $("#tel").val();
+                    contact[EnSelection].courriel = $("#courriel").val();
+                }
+                AfficherListeContact();
+            }
+
+            function ModifierUnContact(e){
+                SaisiePourModifier();
+                 let contactId = e.currentTarget.id.split(' ')[0].split('_')[1];
+
+                $("#nom").val(contacts[contactId].nom);
+                $("#tel").val(contacts[contactId].tel);
+                $("#courriel").val(contacts[contactId].courriel);
+               
             }
 
             function initValidation() {
