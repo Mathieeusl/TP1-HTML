@@ -4,7 +4,8 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<script src="jquery-3.3.1.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script src="jquery.maskedinput.js"></script>
     <link rel="stylesheet" href="tooltip.css">
 	<script src="Validation.js"></script>
@@ -163,9 +164,9 @@
                         $("#ListeContact").append(makeCell(contacts[i].tel, bgColorRow));
                         $("#ListeContact").append(makeCell(contacts[i].courriel, bgColorRow));
 
-                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonModifier","Modifier1" + contacts[i].nom,"Modifier"+ contacts[i].nom).append(AjouterIcone('pencil'))));
+                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonModifier","Modifier1" + contacts[i].nom,"Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
 
-                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonSupprimer","Supprimer1" +contacts[i].nom,"Effacer"+ contacts[i].nom).append(AjouterIcone('remove'))));
+                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonSupprimer","Supprimer1" +contacts[i].nom,"Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
 
                         oddRow = !oddRow;
                     }
@@ -214,26 +215,24 @@
 
                 }
             }
+            function ContactRow(e) {
+                let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
+                var NomMod;
+                var TelMod;
+                var CourrielMod;
+            }
 
             function Supprimer(e) {
-							let EffacerContact = confirm("Voulez-vous effacer le contact?");
-								if(EffacerContact === true)
-								{
-									let NomContact = e.currentTarget.id.split("_")[1];
-									let Effacer = false;
-
-									for(let c = 0; c < contacts.length && Effacer === false; c++)
-									{
-										if(contacts[c].nom === NomContact)
-										{
-											contacts[c].delete();
-											Effacer = true;
-										}
-									}
-                                    Default();
-
-									AfficherListeContact();
-								}
+				 $.confirm({
+                    title: 'Attention!',
+                    content: 'Effacer ?',
+                    buttons: {
+                        confirmer: function () {
+                            
+                        },
+                        annuler: {},
+                    }
+                });
             }
 
             function initValidation() {
