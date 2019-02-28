@@ -122,7 +122,7 @@
                 $("#tel").val("");
                 $("#courriel").val("");
 
-                $("#ListeContact button").hide();
+                $("#ListeContact button").show();
             }
 
             function SaisiePourAjouter(e) {
@@ -174,6 +174,7 @@
 
                 $(".BoutonModifier").click(SaisiePourModifier);
                 $(".BoutonSupprimer").click(Supprimer);
+                $("#ListeContact button").hide();
 
                 $('.cell').mouseover(CellOver);
                 $('.cell').mouseleave(CellBlur);
@@ -190,9 +191,9 @@
             function CellBlur(e){
                 if (!editMode) {
                     let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
-                    $("#Modifier_" + contactId).hide();
-                    $("#Supprimer_" + contactId).hide();
-                    $(".row_"+contactId).removeClass('selectedRow');
+                    $('#Modifier_' + contactId).hide();
+                    $('#Supprimer_' + contactId).hide();
+                    $('.row_'+contactId).removeClass('selectedRow');
                 }
             }
 
@@ -206,7 +207,7 @@
                     let NouvContact = new Contact(Nom, Tel, Courriel);
 										contacts.push(NouvContact);
                 }
-				AfficherListeContact();
+								AfficherListeContact();
                 Default();
             }
 
@@ -219,21 +220,24 @@
             }
 
             function Supprimer(e) {
-                let contactId = e.currentTarget.id.split("_")[1];
+							let EffacerContact = confirm("Voulez-vous effacer le contact?");
+								if(EffacerContact === true)
+								{
+									let NomContact = e.currentTarget.id.split("_")[1];
+									let Effacer = false;
 
-            }
+									for(let c = 0; c < contacts.length && Effacer === false; c++)
+									{
+										if(contacts[c].nom === NomContact)
+										{
+											contacts[c].delete();
+											Effacer = true;
+										}
+									}
 
-            function SupprimerConfirmation(contact) {
-                $.confirm({
-                    title: "Attention!",
-                    content: "Effacer "+ contact.Name +"?",
-                    buttons: {
-                        confirmer: function () {
-
-                        },
-                        annuler: {},
-                    }
-                });
+									AfficherListeContact();
+	                Default();
+								}
             }
 
             function initValidation() {
@@ -279,7 +283,7 @@
                 return "";
             }
 
-           
+
 
         </script>
 </body>
