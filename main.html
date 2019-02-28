@@ -95,16 +95,14 @@
 
             function initUI() {
                 initValidation();
-
+                   Default();
                 $("#BoutonInsererContact").click(AjouterUnContact);
                 $("#BoutonAjouter").click(SaisiePourAjouter);
                 $("#BoutonInsererContactModifier").click(ModifierUnContact);
                 $("#BoutonCancel").click(Default);
                 $("#nom").keypress(textInputAlphaFilter);
-
+        
                 AfficherListeContact();
-                Default();
-
             }
 
             function Default() {
@@ -122,7 +120,7 @@
                 $("#tel").val("");
                 $("#courriel").val("");
 
-                $("#ListeContact button").show();
+                $("#ListeContact button").hide();
             }
 
             function SaisiePourAjouter(e) {
@@ -165,9 +163,9 @@
                         $("#ListeContact").append(makeCell(contacts[i].tel, bgColorRow));
                         $("#ListeContact").append(makeCell(contacts[i].courriel, bgColorRow));
 
-                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonModifier","Modifier_" + contacts[i].nom,"Modifier "+ contacts[i].nom).append(AjouterIcone('pencil'))));
+                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonModifier","Modifier_" + contacts[i].nom,"Modifier"+ contacts[i].nom).append(AjouterIcone('pencil'))));
 
-                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonSupprimer","Supprimer_" +contacts[i].nom,"Effacer "+ contacts[i].nom).append(AjouterIcone('remove'))));
+                        $("#ListeContact").append(makeCell("", bgColorRow).append(AjouterBoutton("BoutonSupprimer","Supprimer_" +contacts[i].nom,"Effacer"+ contacts[i].nom).append(AjouterIcone('remove'))));
 
                         oddRow = !oddRow;
                     }
@@ -175,6 +173,7 @@
                 $(".BoutonModifier").click(SaisiePourModifier);
                 $(".BoutonSupprimer").click(Supprimer);
                 $("#ListeContact button").hide();
+                $('input').on("paste",function(e) { e.preventDefault(); });
 
                 $('.cell').mouseover(CellOver);
                 $('.cell').mouseleave(CellBlur);
@@ -207,8 +206,8 @@
                     let NouvContact = new Contact(Nom, Tel, Courriel);
 										contacts.push(NouvContact);
                 }
-								AfficherListeContact();
                 Default();
+								AfficherListeContact();
             }
 
             function ModifierUnContact() {
@@ -234,9 +233,9 @@
 											Effacer = true;
 										}
 									}
+                                    Default();
 
 									AfficherListeContact();
-	                Default();
 								}
             }
 
