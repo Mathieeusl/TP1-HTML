@@ -46,30 +46,18 @@ button {
 
 .oddRow {
     background-color: LightSteelBlue;
-    font-weight: bold;
-    color: black;
     margin-top: 3px;
     margin-bottom: 3px;
+     font-weight: bold;
+
 }
 .evenRow {
     background-color: MediumPurple;
-    font-weight: bold;
-    color: white;
     margin-top: 3px;
     margin-bottom: 3px;
+     font-weight: bold;
 }
 
-.waiting {
-    font-size: 14px;
-    font-weight: bold;
-    color:green;
-}
-
-.httpError {
-    font-size: 14px;
-    font-weight: bold;
-    color:red;
-}
 .form-container {
     overflow-y: hidden;
 }
