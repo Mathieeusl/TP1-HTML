@@ -172,7 +172,7 @@
                         oddRow = !oddRow;
                         Numerotation++;
                     }
-$('input').on("paste",function(e) { e.preventDefault(); });
+                $('input').on("paste",function(e) { e.preventDefault(); });
                 $(".BoutonModifier").click(SaisiePourModifier);
                 $(".BoutonSupprimer").click(Supprimer);
                 
@@ -206,7 +206,7 @@ $('input').on("paste",function(e) { e.preventDefault(); });
                     let NouvContact = new Contact(Nom, Tel, Courriel);
 										contacts.push(NouvContact);
                 }
-                Default();
+                
 								AfficherListeContact();
             }
 
@@ -230,7 +230,9 @@ $('input').on("paste",function(e) { e.preventDefault(); });
                     content: 'Effacer '+ Name +'?',
                     buttons: {
                         confirmer: function () {
-                            contacts.pop(contacts[contactId]);
+                            console.log(contacts[contactId],contactId);
+                            contacts.splice(contacts[contactId],1);
+                            AfficherListeContact();
                         },
                         annuler: {},
                     }
