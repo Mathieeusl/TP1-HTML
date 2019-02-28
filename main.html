@@ -28,7 +28,7 @@
                                 <span class="glyphicon glyphicon-plus"></span>
                             </button>
                         </div>
-                        <div>&nbsp;</div>
+                        <div></div>
                     </div>
                 </div>
                 <div class="form-container">
@@ -78,17 +78,14 @@
 					    this.courriel = courriel;
 					  }
 					}
-                    let EnSelection;
+                    var EnSelection;
                     
 					let contacts = [
 					  new Contact("Étienne Forest", "(514) 333-9999", "Etienne.Forest@clg.qc.ca"),
 					  new Contact("François Boileau", "(450) 430-3120", "François.Boileau@clg.qc.ca"),
 					  new Contact("Jean Baudet", "(438) 012-9321", "Jean.Baudet@clg.qc.ca"),
 					  new Contact("Joan Sébastien-Morales", "(450) 430-3120", "Joan.Morales@clg.qc.ca"),
-					  new Contact("Kyle Ross", "(514) 123-1234", "Kyle.Ross@clg.qc.ca"),
-					  new Contact("Marc Beaulne", "(450) 111-3333", "Marc.Beaulne@clg.qc.ca"),
-					  new Contact("Nicolas Chourot", "(514) 123-3456", "Nicolas.Chourot@clg.qc.ca"),
-					  new Contact("Saliha Yacoub", "(450) 430-3120", "Saliha.Yacoub@clg.qc.ca")
+					  new Contact("Kyle Ross", "(514) 123-1234", "Kyle.Ross@clg.qc.ca")
 					];
 
 			let validationProvider;
@@ -184,11 +181,11 @@
 			}
 
              function CellOver(e){
+                let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
+
                 if (!addMode && !editMode) {
-                    let contactId = e.currentTarget.className.split(' ')[0].split('_')[1];
                   $('.row_'+contactId + ' button').show();
                     $('.row_'+contactId).addClass('selectedRow');
-                    EnSelection = contactId;
                 }
             }
             function CellBlur(e){
@@ -208,6 +205,7 @@
 
                     let NouvContact = new Contact(Nom, Tel, Courriel);
 										contacts.push(NouvContact);
+                                        Default();
                 }
                 
 								AfficherListeContact();
@@ -223,7 +221,7 @@
                     buttons: {
                         confirmer: function () {
                             console.log(contacts[contactId],contactId);
-                            contacts.splice(contacts[contactId],1);
+                            contacts.splice(contactId,1);
                             AfficherListeContact();
                         },
                         annuler: {},
@@ -233,23 +231,30 @@
 
             function Modifier()
             {
+                console.log(EnSelection);
                 if (validationProvider.isValid()) {
 
-                    contact[EnSelection].nom = $("#nom").val();
-                    contact[EnSelection].tel = $("#tel").val();
-                    contact[EnSelection].courriel = $("#courriel").val();
+                    contacts[EnSelection].nom = $("#nom").val();
+                    contacts[EnSelection].tel = $("#tel").val();
+                    contacts[EnSelection].courriel = $("#courriel").val();
                 }
+                Default();
                 AfficherListeContact();
             }
 
             function ModifierUnContact(e){
                 SaisiePourModifier();
-                 let contactId = e.currentTarget.id.split(' ')[0].split('_')[1];
-
+                let contactId = e.currentTarget.id.split(' ')[0].split('_')[1];
+                EnSelection = contactId;
+                console.log(EnSelection);
                 $("#nom").val(contacts[contactId].nom);
                 $("#tel").val(contacts[contactId].tel);
                 $("#courriel").val(contacts[contactId].courriel);
                
+            }
+            function ContactDiv() {
+               
+                return { Name: $('#Name').val(), Phone: $('#Phone').val(), Email: $('#Email').val()};
             }
 
             function initValidation() {
